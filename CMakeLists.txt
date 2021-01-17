@@ -98,12 +98,17 @@ FOREACH(ENTITY ${GOOD_FEATURE_FILES})
         COMMAND gherkinexe  ${ENTITY}
     )
 ENDFOREACH()
-add_custom_command(
-    TARGET gherkinexe
-    COMMENT "Run tests"
-    POST_BUILD
-    COMMAND ${CMAKE_CTEST_COMMAND} -C $<CONFIGURATION>
-)
+
+option(WITH_GHERKIN_TESTS "Run Gherkin tests" OFF)
+if (WITH_GHERKIN_TESTS)
+    add_custom_command(
+        TARGET gherkinexe
+        COMMENT "Run tests"
+        POST_BUILD
+        COMMAND ${CMAKE_CTEST_COMMAND} -C $<CONFIGURATION>
+    )
+endif()
+
 ############ Installation section ############
 set(include_install_dir "include")
 set(lib_install_dir "lib/")
