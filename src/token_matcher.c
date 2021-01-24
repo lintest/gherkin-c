@@ -172,6 +172,11 @@ bool TokenMatcher_match_Comment(TokenMatcher* token_matcher, Token* token) {
         set_token_matched(token, Token_Comment, text, 0, 0, 0);
         return true;
     }
+    if (GherkinLine_start_with(token->line, L"//")) {
+        wchar_t* text = GherkinLine_copy_line_text(token->line, 0);
+        set_token_matched(token, Token_Comment, text, 0, 0, 0);
+        return true;
+    }
     return false;
 }
 
